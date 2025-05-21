@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+}
+
+.header__logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.badge {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  background: #E5E7EB;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+nav a {
+  color: #1F2937;
+  font-weight: 500;
+}
