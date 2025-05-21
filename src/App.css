@@ -1,32 +1,21 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-}
-.badge {
-  font-size: 0.75rem;
-  background: #E5E7EB;
-  padding: 0.125rem 0.5rem;
-  border-radius: 0.25rem;
-  margin-left: 0.5rem;
-}
-
 .hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 3rem 2rem;
 }
+
 .hero__content h1 {
   font-size: 2.5rem;
   line-height: 1.2;
   margin-bottom: 1rem;
 }
+
 .hero__content p {
   font-size: 1.125rem;
   margin-bottom: 1.5rem;
 }
+
 .hero__buttons {
   display: flex;
   gap: 1rem;
@@ -39,17 +28,22 @@
   font-size: 1rem;
   cursor: pointer;
 }
+
 .button--primary {
   background-color: #2563EB;
   color: #FFFFFF;
 }
+
 .button--secondary {
   background-color: #E5E7EB;
   color: #374151;
 }
 
+/* Shrink the hero image */
 .hero__image img {
-  max-width: 100%;
+  width: 500px;      /* adjust to desired size */
+  height: auto;
+  max-width: 100%;    
   border-radius: 0.5rem;
 }
 
@@ -59,12 +53,14 @@
   gap: 2rem;
   padding: 3rem 2rem;
 }
+
 .step {
   border: 1px solid #E5E7EB;
   border-radius: 0.75rem;
   padding: 1.5rem;
   text-align: center;
 }
+
 .step__number {
   width: 48px;
   height: 48px;
@@ -77,10 +73,12 @@
   color: #2563EB;
   margin: 0 auto 0.75rem;
 }
+
 .step__title {
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
+
 .step__desc {
   font-size: 0.875rem;
   color: #6B7280;
