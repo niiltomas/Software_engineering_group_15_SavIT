@@ -1,6 +1,3 @@
-import React from 'react';
-import './Header.css'; // or include in App.css
-
 import React, { useState } from 'react';
 import './Header.css';
 
