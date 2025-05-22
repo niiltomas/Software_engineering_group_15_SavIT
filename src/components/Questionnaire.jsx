@@ -867,11 +867,12 @@ function Questionnaire() {
   const [selected, setSelected] = useState(null);
   const [text, setText] = useState('');
   const [showSolution, setShowSolution] = useState(false);
+  const [history, setHistory] = useState([]); // <-- Add this
 
   // Calculate progress
-  const totalSteps = 5; // Adjust if needed
-  // You may want to track the actual step number in your logic
-  const step = Math.min(totalSteps, current); // For demo, just use current id
+  const totalSteps = 5; // Adjust to match your flow, including text step
+  let step = history.length + 1;
+  if (current === 86) step = totalSteps;
   const progress = Math.round((step / totalSteps) * 100);
 
   const q = questions.find(q => q.id === current);
@@ -882,24 +883,64 @@ function Questionnaire() {
 
   if (!q) return <div>Thank you! We'll process your answers.</div>;
 
-  // Special handling for question 86
+  // Special handling for question 86 (text)
   if (q.id === 86) {
     return (
-      <div className="questionnaire-card">
-        <h2>{q.text}</h2>
-        <textarea
-          value={text}
-          onChange={e => setText(e.target.value)}
-          rows={5}
-          style={{ width: '100%', marginBottom: 16 }}
-          placeholder="Describe your issue..."
-        />
-        <button
-          onClick={() => setShowSolution(true)}
-          className="submit-btn"
-        >
-          Submit
-        </button>
+      <div className="questionnaire-container">
+        <div className="questionnaire-card">
+          <div className="progress-bar-label">
+            <span className="progress-step">Step {step} of {totalSteps}</span>
+            <span className="progress-percent">{progress}%</span>
+          </div>
+          <div className="progress-bar-bg">
+            <div className="progress-bar-fg" style={{ width: `${progress}%` }} />
+          </div>
+          <h2>{q.text}</h2>
+          <textarea
+            className="question-textarea"
+            value={text}
+            onChange={e => setText(e.target.value)}
+            rows={6}
+            placeholder="Type your answer..."
+          />
+          <div className="questionnaire-actions">
+            <button
+              className="startover-btn"
+              type="button"
+              onClick={() => {
+                setCurrent(1);
+                setSelected(null);
+                setText('');
+                setShowSolution(false);
+                setHistory([]);
+              }}
+            >
+              Start Over
+            </button>
+            <button
+              type="button"
+              className="startover-btn"
+              onClick={() => {
+                if (history.length > 0) {
+                  const prev = history[history.length - 1];
+                  setCurrent(prev);
+                  setHistory(history.slice(0, -1));
+                  setSelected(null);
+                }
+              }}
+              style={{ marginLeft: 8 }}
+            >
+              Go Back
+            </button>
+            <button
+              onClick={() => setShowSolution(true)}
+              className="submit-btn"
+              style={{ float: 'right' }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -918,7 +959,11 @@ function Questionnaire() {
         <form
           onSubmit={e => {
             e.preventDefault();
-            if (selected !== null) setCurrent(q.options[selected].next);
+            if (selected !== null) {
+              setHistory([...history, current]);
+              setCurrent(q.options[selected].next);
+              setSelected(null);
+            }
           }}
         >
           {q.options.map((opt, idx) => (
@@ -939,26 +984,45 @@ function Questionnaire() {
               <span className="question-label">{opt.text}</span>
             </label>
           ))}
-          <button
-            type="submit"
-            className="submit-btn"
-            disabled={selected === null}
-          >
-            Submit
-          </button>
+          <div className="questionnaire-actions">
+            <button
+              type="button"
+              className="startover-btn"
+              onClick={() => {
+                setCurrent(1);
+                setSelected(null);
+                setText('');
+                setShowSolution(false);
+                setHistory([]);
+              }}
+            >
+              Start Over
+            </button>
+            <button
+              type="button"
+              className="startover-btn"
+              onClick={() => {
+                if (history.length > 0) {
+                  const prev = history[history.length - 1];
+                  setCurrent(prev);
+                  setHistory(history.slice(0, -1));
+                  setSelected(null);
+                }
+              }}
+              style={{ marginLeft: 8 }}
+            >
+              Go Back
+            </button>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={selected === null}
+              style={{ float: 'right' }}
+            >
+              Submit
+            </button>
+          </div>
         </form>
-        <button
-          className="startover-btn"
-          type="button"
-          onClick={() => {
-            setCurrent(1);
-            setSelected(null);
-            setText('');
-            setShowSolution(false);
-          }}
-        >
-          Start Over
-        </button>
       </div>
     </div>
   );

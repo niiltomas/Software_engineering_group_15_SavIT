@@ -147,3 +147,28 @@ h2 {
 .startover-btn:hover {
   border: 2px solid #2563eb;
 }
+
+.question-textarea {
+  width: 100%;
+  min-height: 140px;
+  border: 2px solid #111;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  resize: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.question-textarea::placeholder {
+  color: #d1d5db;
+  font-size: 1.1rem;
+}
+
+.questionnaire-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
