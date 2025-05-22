@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Solution from './Solution';
 import './Questionnaire.css';
 
-const questions = [
+export const questions = [
   // Root
   {
     id: 1,
@@ -861,13 +861,14 @@ const questions = [
 ];
 
 
-
 function Questionnaire() {
   const [current, setCurrent] = useState(1); // Start at root
   const [selected, setSelected] = useState(null);
   const [text, setText] = useState('');
   const [showSolution, setShowSolution] = useState(false);
-  const [history, setHistory] = useState([]); // <-- Add this
+  const [history, setHistory] = useState([]);
+  const [answers, setAnswers] = useState([]); // Each entry: { questionId, answer }
+
 
   // Calculate progress
   const totalSteps = 5; // Adjust to match your flow, including text step
@@ -875,13 +876,17 @@ function Questionnaire() {
   if (current === 86) step = totalSteps;
   const progress = Math.round((step / totalSteps) * 100);
 
+
   const q = questions.find(q => q.id === current);
 
+
   if (showSolution) {
-    return <Solution />;
+    return <Solution answers={answers} />;
   }
 
+
   if (!q) return <div>Thank you! We'll process your answers.</div>;
+
 
   // Special handling for question 86 (text)
   if (q.id === 86) {
@@ -913,6 +918,7 @@ function Questionnaire() {
                 setText('');
                 setShowSolution(false);
                 setHistory([]);
+                setAnswers([]);
               }}
             >
               Start Over
@@ -926,6 +932,7 @@ function Questionnaire() {
                   setCurrent(prev);
                   setHistory(history.slice(0, -1));
                   setSelected(null);
+                  setAnswers(answers.slice(0, -1));
                 }
               }}
               style={{ marginLeft: 8 }}
@@ -933,7 +940,13 @@ function Questionnaire() {
               Go Back
             </button>
             <button
-              onClick={() => setShowSolution(true)}
+              onClick={() => {
+                setAnswers([
+                  ...answers,
+                  { questionId: 86, answer: text }
+                ]);
+                setShowSolution(true);
+              }}
               className="submit-btn"
               style={{ float: 'right' }}
             >
@@ -944,6 +957,7 @@ function Questionnaire() {
       </div>
     );
   }
+
 
   return (
     <div className="questionnaire-container">
@@ -960,6 +974,10 @@ function Questionnaire() {
           onSubmit={e => {
             e.preventDefault();
             if (selected !== null) {
+              setAnswers([
+                ...answers,
+                { questionId: current, answer: q.options[selected].text }
+              ]);
               setHistory([...history, current]);
               setCurrent(q.options[selected].next);
               setSelected(null);
@@ -994,6 +1012,7 @@ function Questionnaire() {
                 setText('');
                 setShowSolution(false);
                 setHistory([]);
+                setAnswers([]);
               }}
             >
               Start Over
@@ -1007,6 +1026,7 @@ function Questionnaire() {
                   setCurrent(prev);
                   setHistory(history.slice(0, -1));
                   setSelected(null);
+                  setAnswers(answers.slice(0, -1));
                 }
               }}
               style={{ marginLeft: 8 }}
@@ -1027,5 +1047,6 @@ function Questionnaire() {
     </div>
   );
 }
+
 
 export default Questionnaire;
