@@ -1,0 +1,51 @@
+/* Add to your main CSS or Register.css */
+.register-container {
+  max-width: 400px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 2rem;
+}
+
+
+.register-form label {
+  display: block;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+}
+
+
+.register-input {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+
+.register-terms {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+
+.register-submit {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 2rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+
+.register-submit:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}

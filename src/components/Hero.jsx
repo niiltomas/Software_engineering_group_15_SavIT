@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import heroImg from '../assets/hero.jpg';
 
+
 export default function Hero() {
   const navigate = useNavigate();
+
 
   return (
     <section className="hero">
@@ -13,7 +15,7 @@ export default function Hero() {
         <p>Answer a few simple questions about your IT issue and get an instant, personalized solution powered by AI.</p>
         <div className="hero__buttons">
           <Button variant="primary" onClick={() => navigate('/questionnaire')}>Get Help Now</Button>
-          <Button variant="secondary">Register</Button>
+          <Button variant="secondary" onClick={() => navigate('/register')}>Register</Button>
         </div>
       </div>
       <div className="hero__image">
