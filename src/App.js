@@ -5,8 +5,8 @@ import Hero from './components/Hero';
 import Steps from './components/Steps';
 import Questionnaire from './components/Questionnaire';
 import Register from './components/Register';
+import Login from './components/Login';
 import './App.css';
-
 
 function App() {
   return (
@@ -21,10 +21,11 @@ function App() {
         } />
         <Route path="/questionnaire" element={<Questionnaire />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
 }
 
-
 export default App;
+
