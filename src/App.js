@@ -4,7 +4,9 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Steps from './components/Steps';
 import Questionnaire from './components/Questionnaire';
+import Register from './components/Register';
 import './App.css';
+
 
 function App() {
   return (
@@ -18,9 +20,11 @@ function App() {
           </>
         } />
         <Route path="/questionnaire" element={<Questionnaire />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
 }
+
 
 export default App;
